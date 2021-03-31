@@ -19,6 +19,10 @@ import Example04 from './examples/04'
 import Example05 from './examples/05'
 import Example06 from './examples/06'
 import Example07 from './examples/07'
+import Example08 from './examples/08'
+import Example09 from './examples/09'
+import Example10 from './examples/10'
+import Example11 from './examples/11'
 
 const examples = [
   { key: 1, Component: Example01 },
@@ -28,6 +32,10 @@ const examples = [
   { key: 5, Component: Example05 },
   { key: 6, Component: Example06 },
   { key: 7, Component: Example07 },
+  { key: 8, Component: Example08 },
+  { key: 9, Component: Example09 },
+  { key: 10, Component: Example10 },
+  { key: 11, Component: Example11 },
 ]
 
 const fallbackUi = () => <h1>Example not found</h1>

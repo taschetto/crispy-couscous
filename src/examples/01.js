@@ -9,7 +9,7 @@ export default () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Example #01 — Submitting the form</h1>
+      <h1>Submitting the form</h1>
 
       <input name='firstName' defaultValue='John' ref={register} />
 

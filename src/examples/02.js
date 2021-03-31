@@ -15,7 +15,7 @@ export default () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Example #02 — Disabling the form while submitting</h1>
+      <h1>Disabling the form while submitting</h1>
 
       <input
         name='firstname'

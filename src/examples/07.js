@@ -22,14 +22,20 @@ export default () => {
 
   const onSubmit = async () => {
     try {
-      await instance.post('/example05')
-    } catch ({ response: { data } }) {
-      if (data.firstName) {
-        setError('firstName', { message: data.firstName })
+      await instance.post('/unprocessable-entity')
+    } catch ({
+      response: {
+        data: { errors },
+      },
+    }) {
+      const firstNameError = errors.find(({ name }) => name === 'firstName')
+      if (firstNameError) {
+        setError('firstName', { message: firstNameError.message })
       }
 
-      if (data.lastName) {
-        setError('lastName', { message: data.lastName })
+      const lastNameError = errors.find(({ name }) => name === 'lastName')
+      if (lastNameError) {
+        setError('lastName', { message: lastNameError.message })
       }
     }
   }

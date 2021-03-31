@@ -18,7 +18,7 @@ export default () => {
   return (
     <FormProvider {...formProps}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Example #04 — Create smart form components</h1>
+        <h1>Create smart form components</h1>
 
         <Input name='firstName' defaultValue='John' />
 

@@ -22,7 +22,7 @@ export default () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Example #03 — Schema Validation with `yup`</h1>
+      <h1>Schema Validation with `yup`</h1>
 
       <input
         name='firstName'

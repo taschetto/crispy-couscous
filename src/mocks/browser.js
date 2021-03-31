@@ -7,14 +7,19 @@ const handlers = [
   rest.post('/created', (req, res, ctx) =>
     res(ctx.delay(DELAY_MS), ctx.status(CREATED))
   ),
-  rest.post('/example05', (req, res, ctx) =>
+  rest.post('/unprocessable-entity', (req, res, ctx) =>
     res(
       ctx.delay(DELAY_MS),
       ctx.status(UNPROCESSABLE_ENTITY),
       ctx.json({
-        firstName: 'Your first name is weird.',
-        lastName:
-          'Your family is banned from our API. Your uncle Ted can tell you why.',
+        errors: [
+          { name: 'firstName', message: 'Your first name is weird.' },
+          {
+            name: 'lastName',
+            message:
+              'Your family is banned from our API. Your uncle Ted can tell you why.',
+          },
+        ],
       })
     )
   ),

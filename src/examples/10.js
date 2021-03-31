@@ -1,28 +1,38 @@
-import { useForm, FormProvider, useFormContext } from 'react-hook-form'
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  Controller,
+} from 'react-hook-form'
+import { useCallback } from 'react'
 import { instance } from 'api'
 import { DevTool } from '@hookform/devtools'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { Grid, TextField, Button as MuiButton } from '@material-ui/core'
 import { path } from 'ramda'
+import { useMutation } from 'react-query'
 
 const schema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
 })
 
+const useCustomMutation = (options = {}) =>
+  useMutation(async () => await instance.post('/unprocessable-entity'), {
+    ...options,
+  })
+
 export default () => {
   const formProps = useForm({ resolver: yupResolver(schema) })
   const { control, handleSubmit, setError } = formProps
 
-  const onSubmit = async () => {
-    try {
-      await instance.post('/unprocessable-entity')
-    } catch ({
+  const { mutateAsync } = useCustomMutation({
+    onError: ({
       response: {
         data: { errors },
       },
-    }) {
+    }) => {
       const firstNameError = errors.find(({ name }) => name === 'firstName')
       if (firstNameError) {
         setError('firstName', { message: firstNameError.message })
@@ -32,17 +42,20 @@ export default () => {
       if (lastNameError) {
         setError('lastName', { message: lastNameError.message })
       }
-    }
-  }
+    },
+  })
+
+  const customHandleSubmit = useCallback(
+    onSubmit => handleSubmit(data => onSubmit(data).catch(() => {})),
+    [handleSubmit]
+  )
 
   return (
     <FormProvider {...formProps}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={customHandleSubmit(mutateAsync)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1>
-              Making it look nice with @material-ui (but is doesn&apos;t work)
-            </h1>
+            <h1>Using `mutateAsync` and dealing with the uncaught exception</h1>
           </Grid>
           <Grid item xs={4}>
             <Input name='firstName' defaultValue='John' label='First name' />
@@ -65,6 +78,7 @@ const Input = ({ name, label, defaultValue = '' }) => {
     register,
     formState: { isSubmitting },
     errors,
+    control,
   } = useFormContext()
 
   const disabled = isSubmitting
@@ -72,19 +86,23 @@ const Input = ({ name, label, defaultValue = '' }) => {
   const error = Boolean(helperText)
 
   return (
-    <>
-      <TextField
-        name={name}
-        label={label}
-        defaultValue={defaultValue}
-        ref={register}
-        disabled={disabled}
-        helperText={helperText}
-        error={error}
-        variant='filled'
-        fullWidth
-      />
-    </>
+    <Controller
+      as={
+        <TextField
+          name={name}
+          label={label}
+          ref={register}
+          disabled={disabled}
+          helperText={helperText}
+          error={error}
+          variant='filled'
+          fullWidth
+        />
+      }
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+    />
   )
 }
 

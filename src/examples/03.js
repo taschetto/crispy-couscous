@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { instance } from 'api'
+import { DevTool } from '@hookform/devtools'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -10,6 +11,7 @@ const schema = yup.object().shape({
 
 export const Example03 = () => {
   const {
+    control,
     register,
     handleSubmit,
     errors,
@@ -39,7 +41,7 @@ export const Example03 = () => {
 
       <input type='submit' disabled={isSubmitting} />
 
-      <pre>{JSON.stringify(errors, null, 2)}</pre>
+      <DevTool control={control} />
     </form>
   )
 }

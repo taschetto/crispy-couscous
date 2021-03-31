@@ -1,5 +1,6 @@
 import { useForm, FormProvider, useFormContext } from 'react-hook-form'
 import { instance } from 'api'
+import { DevTool } from '@hookform/devtools'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -10,7 +11,7 @@ const schema = yup.object().shape({
 
 export const Example04 = () => {
   const formProps = useForm({ resolver: yupResolver(schema) })
-  const { handleSubmit } = formProps
+  const { control, handleSubmit } = formProps
 
   const onSubmit = async () => await instance.post('/created')
 
@@ -24,6 +25,8 @@ export const Example04 = () => {
         <Input name='lastName' defaultValue='Doe' />
 
         <Button type='submit' />
+
+        <DevTool control={control} />
       </form>
     </FormProvider>
   )

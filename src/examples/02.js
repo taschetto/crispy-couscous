@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form'
-
 import { instance } from 'api'
+import { DevTool } from '@hookform/devtools'
 
 export const Example02 = () => {
   const {
+    control,
     register,
     handleSubmit,
     errors,
@@ -32,6 +33,8 @@ export const Example02 = () => {
       {errors.lastName && <span>This field is required</span>}
 
       <input type='submit' disabled={isSubmitting} />
+
+      <DevTool control={control} />
     </form>
   )
 }

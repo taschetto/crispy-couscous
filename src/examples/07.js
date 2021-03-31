@@ -1,4 +1,9 @@
-import { useForm, FormProvider, useFormContext } from 'react-hook-form'
+import {
+  useForm,
+  FormProvider,
+  useFormContext,
+  Controller,
+} from 'react-hook-form'
 import { instance } from 'api'
 import { DevTool } from '@hookform/devtools'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -34,10 +39,7 @@ export default () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1>
-              Example #06 — Making it look nice with @material-ui (but is
-              doesn&apos;t work)
-            </h1>
+            <h1>Making it look nice with @material-ui (solution)</h1>
           </Grid>
           <Grid item xs={4}>
             <Input name='firstName' defaultValue='John' label='First name' />
@@ -60,6 +62,7 @@ const Input = ({ name, label, defaultValue = '' }) => {
     register,
     formState: { isSubmitting },
     errors,
+    control,
   } = useFormContext()
 
   const disabled = isSubmitting
@@ -67,19 +70,23 @@ const Input = ({ name, label, defaultValue = '' }) => {
   const error = Boolean(helperText)
 
   return (
-    <>
-      <TextField
-        name={name}
-        label={label}
-        defaultValue={defaultValue}
-        ref={register}
-        disabled={disabled}
-        helperText={helperText}
-        error={error}
-        variant='filled'
-        fullWidth
-      />
-    </>
+    <Controller
+      as={
+        <TextField
+          name={name}
+          label={label}
+          ref={register}
+          disabled={disabled}
+          helperText={helperText}
+          error={error}
+          variant='filled'
+          fullWidth
+        />
+      }
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+    />
   )
 }
 

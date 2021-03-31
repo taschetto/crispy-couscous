@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 import { instance } from 'api'
 
-export const Example01 = () => {
+export default () => {
   const { register, handleSubmit, errors, control } = useForm()
 
   const onSubmit = async () => await instance.post('/created')

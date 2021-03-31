@@ -12,12 +12,13 @@ import {
 } from 'react-router-dom'
 import { history } from 'utils/history'
 
-import { Example01 } from './examples/01'
-import { Example02 } from './examples/02'
-import { Example03 } from './examples/03'
-import { Example04 } from './examples/04'
-import { Example05 } from './examples/05'
-import { Example06 } from './examples/06'
+import Example01 from './examples/01'
+import Example02 from './examples/02'
+import Example03 from './examples/03'
+import Example04 from './examples/04'
+import Example05 from './examples/05'
+import Example06 from './examples/06'
+import Example07 from './examples/07'
 
 const examples = [
   { key: 1, Component: Example01 },
@@ -26,6 +27,7 @@ const examples = [
   { key: 4, Component: Example04 },
   { key: 5, Component: Example05 },
   { key: 6, Component: Example06 },
+  { key: 7, Component: Example07 },
 ]
 
 const fallbackUi = () => <h1>Example not found</h1>

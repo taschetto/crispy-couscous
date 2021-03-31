@@ -9,7 +9,7 @@ const schema = yup.object().shape({
   lastName: yup.string().required(),
 })
 
-export const Example03 = () => {
+export default () => {
   const {
     control,
     register,

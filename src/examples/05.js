@@ -9,7 +9,7 @@ const schema = yup.object().shape({
   lastName: yup.string().required(),
 })
 
-export const Example05 = () => {
+export default () => {
   const formProps = useForm({ resolver: yupResolver(schema) })
   const { control, handleSubmit, setError } = formProps
 

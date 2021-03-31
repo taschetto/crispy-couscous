@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { instance } from 'api'
 import { DevTool } from '@hookform/devtools'
 
-export const Example02 = () => {
+export default () => {
   const {
     control,
     register,

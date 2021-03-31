@@ -1,5 +1,5 @@
 import { setupWorker, rest } from 'msw'
-import { CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
+import { CONFLICT, CREATED, UNPROCESSABLE_ENTITY } from 'http-status'
 
 const DELAY_MS = 1000
 
@@ -20,6 +20,15 @@ const handlers = [
               'Your family is banned from our API. Your uncle Ted can tell you why.',
           },
         ],
+      })
+    )
+  ),
+  rest.post('/conflict', (req, res, ctx) =>
+    res(
+      ctx.delay(DELAY_MS),
+      ctx.status(CONFLICT),
+      ctx.json({
+        message: 'A conflict occurred.',
       })
     )
   ),
